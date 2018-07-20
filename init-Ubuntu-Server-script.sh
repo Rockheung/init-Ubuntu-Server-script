@@ -28,21 +28,16 @@ hostname -F /etc/hostname
 # Add sudo user
 adduser --disabled-password --gecos "" $USERNAME
 usermod -aG sudo $USERNAME
-echo 'add user finished'
 
 # Install Vim-Bootstrap
 apt install -y git exuberant-ctags ncurses-term curl vim
 sudo -u $USERNAME -H sh -c "/usr/bin/curl 'http://vim-bootstrap.com/generate.vim' --data 'langs=javascript&langs=php&langs=html&langs=ruby&langs=go&langs=c&langs=python&langs=elm&langs=&editor=vim' > ~/.vimrc"
 sudo -u $USERNAME -H sh -c "echo -ne '\n' | vim +PlugInstall +qall"
-echo 'vim install finished'
 
 # Python virtualenvwrapper
 apt install -y python3-pip
 sudo -u $USERNAME -H sh -c "/usr/bin/pip3 install -U pip"
 sudo -u $USERNAME -H sh -c "pip install virtualenvwrapper"
-sudo -u $USERNAME -H sh -c "echo 'export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source $HOME/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc"
-echo 'pip install finished'
-
-
+sudo -u $USERNAME -H sh -c "echo 'export WORKON_HOME=/home/$USERNAME/.virtualenvs
+export PROJECT_HOME=/home/$USERNAME/Devel
+source /home/$USERNAME/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc"
