@@ -3,16 +3,17 @@
 # when deploying using this script.
 #
 # Set sudo user name
-USERNAME=rockheung
+#<UDF name="username" label="The user's name for the new Linode.">
+#USERNAME=
 #
-#tUDF name="hostname" label="The hostname for the new Linode.">
-HOSTNAME=sundrycodes
+#<UDF name="hostname" label="The hostname for the new Linode.">
+#HOSTNAME=
 #
 #<UDF name="fqdn" label="The new Linode's Fully Qualified Domain Name">
-#FQDN=rockheung.xyz
+#FQDN=
 
 # This sets the variable $IPADDR to the IP address the new Linode receives.
-#IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
+IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
 # Stop ssh while install
 systemctl stop ssh.service
@@ -26,7 +27,7 @@ echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
 
 # This section sets the Fully Qualified Domain Name (FQDN) in the hosts file.
-#echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
+echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
 
 # Add sudo user
 adduser --disabled-password --gecos "" $USERNAME
