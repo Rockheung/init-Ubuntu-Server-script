@@ -14,6 +14,9 @@ HOSTNAME=sundrycodes
 # This sets the variable $IPADDR to the IP address the new Linode receives.
 #IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
+# Stop ssh while install
+systemctl stop ssh.service
+
 # This updates the packages on the system from the distribution repositories.
 apt update
 apt upgrade -y
@@ -37,7 +40,10 @@ sudo -u $USERNAME -H sh -c "echo -ne '\n' | vim +PlugInstall +qall"
 # Python virtualenvwrapper
 apt install -y python3-pip
 sudo -u $USERNAME -H sh -c "/usr/bin/pip3 install -U pip"
-sudo -u $USERNAME -H sh -c "pip install virtualenvwrapper"
+ln -s /usr/bin/python3 /usr/bin/python
+sudo -u $USERNAME -H sh -c "export PATH=/home/$USERNAME/.local/bin:$PATH && pip install --user virtualenvwrapper"
 sudo -u $USERNAME -H sh -c "echo 'export WORKON_HOME=/home/$USERNAME/.virtualenvs
 export PROJECT_HOME=/home/$USERNAME/Devel
 source /home/$USERNAME/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc"
+
+reboot
