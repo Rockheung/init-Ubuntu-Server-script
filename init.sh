@@ -43,7 +43,7 @@ apt install -y python3-pip
 sudo -u $USERNAME -H sh -c "/usr/bin/pip3 install -U pip"
 ln -s /usr/bin/python3 /usr/bin/python
 sudo -u $USERNAME -H sh -c "export PATH=/home/$USERNAME/.local/bin:$PATH && pip install --user virtualenvwrapper"
-sudo -u $USERNAME -H sh -c "echo 'export WORKON_HOME=/home/$USERNAME/.virtualenvs
+sudo -u $USERNAME -H sh -c "echo export WORKON_HOME=/home/$USERNAME/.virtualenvs"
 export PROJECT_HOME=/home/$USERNAME/Devel
 source /home/$USERNAME/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc"
 
